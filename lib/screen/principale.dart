@@ -423,6 +423,11 @@ class diag extends State<diagW> {
           new charts.TimeSeriesChart(
           creerdata(),
           animate: true,
+              layoutConfig: new charts.LayoutConfig(
+                  leftMarginSpec: new charts.MarginSpec.fixedPixel(60),
+                  topMarginSpec: new charts.MarginSpec.fixedPixel(20),
+                  rightMarginSpec: new charts.MarginSpec.fixedPixel(60),
+                  bottomMarginSpec: new charts.MarginSpec.fixedPixel(20))
         ),
         FlatButton(
           onPressed: (){
