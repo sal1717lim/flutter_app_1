@@ -419,7 +419,7 @@ class diag extends State<diagW> {
           StaggeredTile.count(1, 1),
 
         ],
-        children: [
+        children: [//test
           new charts.TimeSeriesChart(
           creerdata(),
           animate: true,
