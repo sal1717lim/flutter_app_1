@@ -419,10 +419,15 @@ class diag extends State<diagW> {
           StaggeredTile.count(1, 1),
 
         ],
-        children: [
+        children: [//test
           new charts.TimeSeriesChart(
           creerdata(),
           animate: true,
+              layoutConfig: new charts.LayoutConfig(
+                  leftMarginSpec: new charts.MarginSpec.fixedPixel(60),
+                  topMarginSpec: new charts.MarginSpec.fixedPixel(20),
+                  rightMarginSpec: new charts.MarginSpec.fixedPixel(60),
+                  bottomMarginSpec: new charts.MarginSpec.fixedPixel(20))
         ),
         FlatButton(
           onPressed: (){
