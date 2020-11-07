@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:openfoodfacts/model/Nutriments.dart';
+import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 Future<Product> getProduct(barcode1) async {
   var barcode = barcode1;
@@ -8,8 +9,23 @@ Future<Product> getProduct(barcode1) async {
   ProductResult result =
   await OpenFoodAPIClient.getProduct(configuration);
 
+
   if (result.status == 1) {
     return result.product;
+  } else {
+
+  }
+}
+//test shearch product  by name
+Future<List <Product>> recherche() async{
+  User myUser = new User(userId: "sal-lim-17", password: "Sofisfgsf5g4s6f45");
+
+  await OpenFoodAPIClient.searchProducts(myUser, null);
+
+  ProductSearchQueryConfiguration config= ProductSearchQueryConfiguration(language: OpenFoodFactsLanguage.FRENCH,fields: [ProductField.NAME,ProductField.NUTRIMENTS],parametersList: [SearchTerms(terms:['nutella'])]);
+  SearchResult result = await OpenFoodAPIClient.searchProducts(myUser, config);
+  if (result.page!=0) {
+    return result.products;
   } else {
 
   }

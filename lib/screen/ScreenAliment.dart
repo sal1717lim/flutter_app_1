@@ -69,6 +69,8 @@ class _screenAliment extends State<screenAliment> {
                  onPressed: ()async {
                    var scanResult;
                    try {
+                     var test=recherche();
+                     print(test);
                      scanResult = await BarcodeScanner.scan();
                      var x= scanResult.rawContent;
                      var y=await getProduct(x);
