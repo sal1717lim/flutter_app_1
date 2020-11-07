@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:tes/script/produit.dart';
 
 import '../script/Personne.dart';
+import '../script/OFF.dart';
 
 class Validators {
   final validateNom = StreamTransformer<String, String>.fromHandlers(
@@ -128,4 +129,13 @@ class Validators {
       }
 
   );
+  final rechercheproduit= StreamTransformer<String, String>.fromHandlers(
+      handleData: (produit,sink){
+        recherche(produit);
+        print("1");
+
+      }
+
+  );
+
 }

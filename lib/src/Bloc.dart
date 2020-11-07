@@ -11,6 +11,7 @@ class Bloc extends Object with Validators{
   var _kcal =StreamController<String>();
   var _nomp =StreamController<String>();
   var _nbkcal =StreamController<String>();
+  var _recherchp =StreamController<String>();
 
 
   //Add
@@ -23,6 +24,7 @@ class Bloc extends Object with Validators{
   Stream<String> get kcal => _kcal.stream.transform(validatekcal);
   Stream<String> get nomp => _nomp.stream.transform(validatenomp);
   Stream<String> get nbkcal => _nbkcal.stream.transform(validatenbkcal);
+  Stream<String> get recherchp => _recherchp.stream.transform(rechercheproduit);
 
 
 
@@ -42,6 +44,8 @@ class Bloc extends Object with Validators{
   Function(String) get changekcal => _kcal.sink.add;
   Function(String) get changenomp => _nomp.sink.add;
   Function(String) get changenbkcal => _nbkcal.sink.add;
+  Function(String) get changenrcherch => _recherchp.sink.add;
+
 
 
   dispose(){
@@ -53,6 +57,7 @@ class Bloc extends Object with Validators{
     _kcal.close();
     _nomp.close();
     _nbkcal.close();
+    _recherchp.close();
   }
 void upgrade(){
    this._nom =new StreamController<String>();
@@ -65,6 +70,7 @@ void upgrade(){
    this._kcal=new StreamController<String>();
    this._nomp =new StreamController<String>();
    this._nbkcal =new StreamController<String>();
+   this._recherchp=new StreamController<String>();
 
 }
 }

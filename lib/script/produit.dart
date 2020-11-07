@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 class produit{
-
+  List <Widget> rc=[];
   StringBuffer nom;
   StringBuffer url;
   StringBuffer kcal;

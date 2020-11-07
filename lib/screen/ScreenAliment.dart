@@ -35,7 +35,7 @@ class _screenAliment extends State<screenAliment> {
   }
 
   Widget build(BuildContext context) {
-
+    bloc.upgrade();
     return Scaffold(
 
       appBar: AppBar(
@@ -55,7 +55,18 @@ class _screenAliment extends State<screenAliment> {
         title: Container(
           height: 40,
 
-        child :TextFormField(
+        child :
+             StreamBuilder(
+            stream: bloc.recherchp,
+            builder: (context,snapshot){
+              return TextFormField(
+          onChanged: bloc.changenrcherch,
+          onEditingComplete: (){
+            setState(() {
+              cour.rc.add(ListTile());
+            });
+          },
+
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
@@ -69,8 +80,7 @@ class _screenAliment extends State<screenAliment> {
                  onPressed: ()async {
                    var scanResult;
                    try {
-                     var test=recherche();
-                     print(test);
+
                      scanResult = await BarcodeScanner.scan();
                      var x= scanResult.rawContent;
                      var y=await getProduct(x);
@@ -129,6 +139,8 @@ class _screenAliment extends State<screenAliment> {
 
 
           ),
+        );
+         }
         ),
         ),
 
@@ -151,7 +163,7 @@ class _screenAliment extends State<screenAliment> {
               border: Border.all(color: Colors.black)
           ),
     child:Column(
-      children: [],)
+      children: cour.rc,)
 
 
     ),Container(

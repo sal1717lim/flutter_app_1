@@ -13,6 +13,7 @@ class personne {
   double kcal6=0;
 
   List <Widget> test=[];
+
   String nom;
   String prenom;
   String naissance;

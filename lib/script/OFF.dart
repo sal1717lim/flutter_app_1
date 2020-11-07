@@ -1,31 +1,41 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:openfoodfacts/model/Nutriments.dart';
 import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:tes/script/produit.dart';
 Future<Product> getProduct(barcode1) async {
   var barcode = barcode1;
-  var name="candia";
+
   ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode, language: OpenFoodFactsLanguage.FRENCH, fields: [ProductField.ALL]);
   ProductResult result =
   await OpenFoodAPIClient.getProduct(configuration);
 
 
   if (result.status == 1) {
+    print(result.product);
     return result.product;
   } else {
 
   }
 }
 //test shearch product  by name
-Future<List <Product>> recherche() async{
+void recherche(x) async{
   User myUser = new User(userId: "sal-lim-17", password: "Sofisfgsf5g4s6f45");
 
-  await OpenFoodAPIClient.searchProducts(myUser, null);
+  //await OpenFoodAPIClient.searchProducts(myUser, null);
 
-  ProductSearchQueryConfiguration config= ProductSearchQueryConfiguration(language: OpenFoodFactsLanguage.FRENCH,fields: [ProductField.NAME,ProductField.NUTRIMENTS],parametersList: [SearchTerms(terms:['nutella'])]);
+  ProductSearchQueryConfiguration config= ProductSearchQueryConfiguration(language: OpenFoodFactsLanguage.FRENCH,fields: [ProductField.NAME,ProductField.NUTRIMENTS],parametersList: [SearchTerms(terms:[x])]);
   SearchResult result = await OpenFoodAPIClient.searchProducts(myUser, config);
   if (result.page!=0) {
-    return result.products;
+    print(result.products);
+    cour.rc.clear();
+    for (int i=0;i<20;i++){
+      cour.rc.add(ListTile(
+        title: Text(result.products[i].productName),
+      ));
+    }
+
   } else {
 
   }
