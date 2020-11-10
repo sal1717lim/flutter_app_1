@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 class produit{
+  var context;
   List <Widget> rc=[];
   StringBuffer nom;
   StringBuffer url;

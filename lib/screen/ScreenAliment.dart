@@ -59,6 +59,7 @@ class _screenAliment extends State<screenAliment> {
              StreamBuilder(
             stream: bloc.recherchp,
             builder: (context,snapshot){
+              cour.context=context;
               return TextFormField(
           onChanged: bloc.changenrcherch,
           onEditingComplete: (){
@@ -162,8 +163,8 @@ class _screenAliment extends State<screenAliment> {
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black)
           ),
-    child:Column(
-      children: cour.rc,)
+    child:SingleChildScrollView(child:Column(
+      children: cour.rc,))
 
 
     ),Container(

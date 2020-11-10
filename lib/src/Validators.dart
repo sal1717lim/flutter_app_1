@@ -130,8 +130,8 @@ class Validators {
 
   );
   final rechercheproduit= StreamTransformer<String, String>.fromHandlers(
-      handleData: (produit,sink){
-        recherche(produit);
+      handleData: (produit,sinkt){
+        recherche(cour.context,produit,User.database);
         print("1");
 
       }
