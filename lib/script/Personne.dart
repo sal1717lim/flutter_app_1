@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +29,60 @@ class personne {
       {this.nom, this.prenom, this.naissance, this.poid, this.sexe, this.taille}) {
     this.initbool();
   }
+  void lila() async {
+    kcal1 = 0;
+    kcal2 = 0;
+    kcal3 = 0;
+
+    kcal4 = 0;
+
+
+    kcal5 = 0;
+    kcal6 = 0;
+    List<Map> list = await User.database.rawQuery(
+        'SELECT * FROM journee WHERE (date = \'' +
+            DateTime.now().toString().substring(0, 10) + '\')');
+    int i;
+    for (i = 0; i < list.length; i++) {
+      switch (list[i]['repas']) {
+        case 'ptit-dej':
+          kcal1 = kcal1 + list[i]["kcal"];
+          break;
+        case 'dej':
+          kcal2 = kcal2 + list[i]["kcal"];
+          break;
+        case 'collmat':
+          kcal3 = kcal3 + list[i]["kcal"];
+          break;
+        case 'the':
+          kcal4 = kcal4 + list[i]["kcal"];
+          break;
+        case 'dinner':
+          kcal5 = kcal5 + list[i]["kcal"];
+          break;
+        case 'collsoir':
+          kcal6 = kcal6 + list[i]["kcal"];
+          break;
+      }
+    }
+
+  }
+  void majlila(String r,double a){
+    switch(r){
+      case 'ptit-dej':
+        kcal1=kcal1+a;
+        break;
+      case 'dej':kcal2=kcal2+a;
+      break;
+      case 'collmat':kcal3=kcal3+a;
+      break;
+      case 'the':kcal4=kcal4+a;
+      break;
+      case 'dinner':kcal5=kcal5+a;
+      break;
+      case 'collsoir':kcal6=kcal6+a;
+      break;
+  }}
   void creerlist() async{
     this.test=[];
     List<Map> list=await User.database.rawQuery('SELECT * FROM journee WHERE (date = \''+DateTime.now().toString().substring(0,10)+'\' AND repas = \''+cour.repas+'\')');
@@ -35,8 +90,9 @@ class personne {
     int i;
 
     for (i=0;i<list.length;i++ ){
-      switch(cour.repas){
-        case 'ptit-dej':kcal1=kcal1+list[i]["kcal"];
+      /*switch(cour.repas){
+        case 'ptit-dej':
+          kcal1=kcal1+list[i]["kcal"];
         break;
         case 'dej':kcal2=kcal2+list[i]["kcal"];
           break;
@@ -48,11 +104,13 @@ class personne {
           break;
         case 'collsoir':kcal6=kcal6+list[i]["kcal"];
           break;
-      }
+      }*/
+
       this.test.add(
           new Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue)
+                  borderRadius: BorderRadiusDirectional.circular(30)
+
               ),
               child:ListTile(leading: Icon(Icons.fastfood,
                 color: Colors.red,

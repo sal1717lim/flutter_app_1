@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
-
+import 'principale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
@@ -14,6 +14,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import '../script/Personne.dart';
+
 class screenAliment extends StatefulWidget{
 
   screenAliment({Key key}) :super(key:key);
@@ -23,7 +24,29 @@ class screenAliment extends StatefulWidget{
 }
 class _screenAliment extends State<screenAliment> {
 
+  TextEditingController _controller;
+  TextEditingController _controllerkcal;
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    _controllerkcal = TextEditingController();
+    _controllerkcal.addListener(() {
+      cour.setkcalt(double.parse(_controllerkcal.value.text)*cour.kcal1g);
+      print(cour.kcalt);
+    });
+    _controller.addListener(() {
+      setState(() {
+        cour.rc.add(ListTile(title: Text(""),));
+        print(cour.rc);
+      });
+    });
+  }
 
+  void dispose() {
+    _controller.dispose();
+    _controllerkcal.dispose();
+    super.dispose();
+  }
 
   Color couleur=Colors.black;
   void _showErrorSnackbar(BuildContext context, String error) {
@@ -36,6 +59,7 @@ class _screenAliment extends State<screenAliment> {
 
   Widget build(BuildContext context) {
     bloc.upgrade();
+
     return Scaffold(
 
       appBar: AppBar(
@@ -44,8 +68,11 @@ class _screenAliment extends State<screenAliment> {
           onPressed: (){
             cour.setnom("");
             cour.setKcal("");
+            User.lila();
             cour.seturl("https://i0.wp.com/www.triomphe-securite.fr/wp-content/uploads/2014/07/image-vide.png");
             Navigator.pop(context);
+            cour.rc.clear();
+
           },
 
 
@@ -61,6 +88,7 @@ class _screenAliment extends State<screenAliment> {
             builder: (context,snapshot){
               cour.context=context;
               return TextFormField(
+                controller: _controller,
           onChanged: bloc.changenrcherch,
           onEditingComplete: (){
             setState(() {
@@ -179,7 +207,6 @@ class _screenAliment extends State<screenAliment> {
   }
   ficheproduit(context,produit pr){
     bloc.upgrade();
-    double tet=0;
     return StaggeredGridView.count(
       crossAxisCount: 8,
       mainAxisSpacing: 4.0,
@@ -219,13 +246,11 @@ color: Colors.black,
     builder: (context, snapshot) {
 
       return CupertinoTextField(
+        controller: _controllerkcal,
+
         onChanged:bloc.changekcal,
 
-        onEditingComplete: (){
-          setState(() {
-            tet=cour.kcalt;
-          });
-        },
+
 
         keyboardType: TextInputType.number,
     textAlign: TextAlign.center,
@@ -245,8 +270,11 @@ color: Colors.black,
        // Text(""),
        // Text(""),
       FlatButton(
+
         onPressed: ()async{
           print(DateTime.now().toString().substring(0,10));
+          print(cour.kcal1g);
+          print(cour.kcalt);
             if(cour.kcalt!=0){
 
               Map <String,dynamic> x={
@@ -399,6 +427,7 @@ color: Colors.black,
               cour.setKcal("");
               cour.seturl("https://i0.wp.com/www.triomphe-securite.fr/wp-content/uploads/2014/07/image-vide.png");
               Navigator.pop(context);
+
             }
 
 

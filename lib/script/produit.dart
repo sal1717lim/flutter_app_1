@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'Personne.dart';
 class produit{
   var context;
+  String img;
+  String msg;
   List <Widget> rc=[];
   StringBuffer nom;
   StringBuffer url;
@@ -9,10 +11,17 @@ class produit{
   String repas;
   double kcal1g;
   double kcalt;
+  void f(r,a){
+    User.majlila(r, a);
+  }
   produit(this.nom,this.url,this.kcal,this.kcal1g,this.kcalt);
   void setnom(String nom){
     this.nom.clear();
     this.nom.write(nom);
+  }
+  void setkcalt(double t){
+    this.kcalt=t;
+
   }
   void seturl(String url){
     this.url.clear();

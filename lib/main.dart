@@ -24,6 +24,7 @@ void main() async{
     User.setpoid(list2[0]["poid"]);
     List<Map> listpoid=await db.rawQuery('SELECT * FROM TABPOID ORDER BY id ASC;');
     User.setevolution(listpoid);
+    User.lila();
 
   }catch(e){
     User.database=db;

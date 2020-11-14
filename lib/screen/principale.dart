@@ -7,8 +7,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'ScreenAliment.dart';
 import '../script/produit.dart';
-
+import '../screen/ScreenAl.dart';
 class Principale extends StatefulWidget{
+
 
   Principale({Key key}) :super(key:key);
 
@@ -21,6 +22,14 @@ class _Principale extends State<Principale>{
 
   Widget build(BuildContext context) {
 
+setState(() {
+  User.kcal1=User.kcal1+0;
+  User.kcal2=User.kcal2+0;
+  User.kcal3=User.kcal3+0;
+  User.kcal4=User.kcal4+0;
+  User.kcal5=User.kcal5+0;
+  User.kcal6=User.kcal6+0;
+});
     return Scaffold(
       bottomNavigationBar: null,
       backgroundColor: Colors.white,
@@ -113,7 +122,9 @@ class _Principale extends State<Principale>{
 
 }
 class menu extends StatelessWidget {
+
   Widget build(Context) {
+
     return Container(
       margin: EdgeInsets.all(5.0),
       child: StaggeredGridView.count(
@@ -210,8 +221,11 @@ class _journee extends State<journee> {
 
             onPressed: () async {
               cour.repas="ptit-dej";
+              cour.msg="petit-déjeuner";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              cour.rc.add(Container(height: 200,));
+              cour.img="assets/images/ptitdej.png";
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
               setState(() {
                 User.kcal1=User.kcal1+1-1;
               });
@@ -243,8 +257,10 @@ class _journee extends State<journee> {
           RaisedButton(
             onPressed: () async {
               cour.repas="dej";
+              cour.msg="Dejeuner";
+              cour.img="assets/images/dejeuner.png";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
             },
             child: Image.asset("assets/images/dejeuner.png"),
             color: Colors.white,
@@ -272,8 +288,10 @@ class _journee extends State<journee> {
           RaisedButton(
             onPressed: () async {
               cour.repas="collmat";
+              cour.msg="Collation \n  matinal";
+              cour.img="assets/images/collmat.png";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
               setState(() {
                 User.kcal3+1-1;
               });
@@ -304,8 +322,10 @@ class _journee extends State<journee> {
           RaisedButton(
             onPressed: () async {
               cour.repas="the";
+              cour.msg="Gouter";
+              cour.img="assets/images/thé.png";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
             },
             child: Image.asset("assets/images/thé.png"),
             color: Colors.white,
@@ -333,8 +353,10 @@ class _journee extends State<journee> {
           RaisedButton(
             onPressed: () async {
               cour.repas="dinner";
+              cour.msg="Dinner";
+              cour.img="assets/images/dinner.png";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
               setState(() {
                 User.kcal5+1-1;
               });
@@ -343,9 +365,9 @@ class _journee extends State<journee> {
             color: Colors.white,
           ),
           Align(
-              alignment: Alignment(0, 0.3),
+              alignment: Alignment(0, 0.8),
               child: Text(
-                "Dinner:" + courant.toString() + "/" + limite.toString(),
+                 courant.toString() + "/" + limite.toString(),
                 style: TextStyle(
                   color: couleur,
                   fontSize: 16,
@@ -365,8 +387,10 @@ class _journee extends State<journee> {
           RaisedButton(
             onPressed: () async {
               cour.repas="collsoir";
+              cour.msg="collation soir";
+              cour.img="assets/images/collsoir.png";
               User.creerlist();
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screenAliment())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>(new screen())));
             },
             child: Image.asset("assets/images/collsoir.png"),
             color: Colors.white,
@@ -420,15 +444,11 @@ class diag extends State<diagW> {
 
         ],
         children: [//test
-          new charts.TimeSeriesChart(
+          new /*InteractiveViewer(child:*/ charts.TimeSeriesChart(
           creerdata(),
           animate: true,
-              layoutConfig: new charts.LayoutConfig(
-                  leftMarginSpec: new charts.MarginSpec.fixedPixel(60),
-                  topMarginSpec: new charts.MarginSpec.fixedPixel(20),
-                  rightMarginSpec: new charts.MarginSpec.fixedPixel(60),
-                  bottomMarginSpec: new charts.MarginSpec.fixedPixel(20))
-        ),
+
+        )/*)*/,
         FlatButton(
           onPressed: (){
             setState(() {

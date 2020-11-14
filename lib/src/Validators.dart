@@ -98,14 +98,22 @@ class Validators {
         }
       }
   );
+  final validatecalor= StreamTransformer<String, String>.fromHandlers(
+    handleData: (kcal,sink){
+
+
+    },
+  );
   final validatekcal= StreamTransformer<String, String>.fromHandlers(
       handleData: (kcal,sink){
 
-        cour.kcalt=double.parse(kcal)*cour.kcal1g;
 
-        }
+
+
+        },
 
   );
+
   final validatenomp= StreamTransformer<String, String>.fromHandlers(
       handleData: (nomp,sink){
         if(nomp.length!=0){
@@ -131,7 +139,7 @@ class Validators {
   );
   final rechercheproduit= StreamTransformer<String, String>.fromHandlers(
       handleData: (produit,sinkt){
-        recherche(cour.context,produit,User.database);
+        recherche(cour.context,produit,User.database,User.test);
         print("1");
 
       }

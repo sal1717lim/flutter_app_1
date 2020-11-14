@@ -5,6 +5,7 @@ import 'package:openfoodfacts/model/Nutriments.dart';
 import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:tes/script/produit.dart';
+
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,7 +28,7 @@ Future<Product> getProduct(barcode1) async {
 }
 //test shearch product  by name
 
-void recherche(context,x,db) async{
+void recherche(context,x,db,test) async{
   User myUser = new User(userId: "sal-lim-17", password: "Sofisfgsf5g4s6f45");
 
   //await OpenFoodAPIClient.searchProducts(myUser, null);
@@ -37,39 +38,90 @@ void recherche(context,x,db) async{
   if (result.page!=0) {
     print(result.products);
     cour.rc.clear();
-
+    Size size=MediaQuery.of(context).size;
     for (int i=0;i<result.products.length;i++){
-      cour.rc.add(Container(
-          decoration:BoxDecoration(
-              border: Border.all(color: Colors.blue)
+      cour.rc.add(
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.white
           ),
-          child:FlatButton(onPressed: (){
-        cour.setnom(result.products[i].productName);
-        cour.seturl(result.products[i].imgSmallUrl);
-        cour.setKcal("Energie(100g):"+result.products[i].nutriments.energyKcal100g.toString()+" kcal");
-        showCupertinoDialog(context: context,
-            builder: (BuildContext context) => CupertinoDialog(
-              child: Container(
-                  height: 150,
-                  width: 100,
-child: ficheproduit(context, cour, db),
+          margin: EdgeInsets.only(
+            left: 20,top: 10,bottom: 80
+          ),
+          width: size.width*0.4,
+height: 180,
 
-            )));
-      },
-          child:
-          ListTile(
-            leading: Image.network(result.products[i].imgSmallUrl),
-        title: Text(result.products[i].productName),
-      ))));
+           child: Column(children:[Container(
+             decoration: BoxDecoration(
+               color: Colors.white10
+                   ,borderRadius: BorderRadius.circular(23)
+             ),
+height: 150,
+             width: 150,
+             child:FlatButton(
+               onPressed: (){
+                 cour.setnom(result.products[i].productName);
+                 cour.kcal1g=result.products[i].nutriments.energyKcal100g/100;
+                 try{
+                   cour.seturl(result.products[i].imgSmallUrl);}
+
+                 catch(e){
+                   cour.seturl("https://i0.wp.com/www.triomphe-securite.fr/wp-content/uploads/2014/07/image-vide.png");
+                 }
+                 cour.setKcal("Energie(100g):"+result.products[i].nutriments.energyKcal100g.toString()+" kcal");
+                 showCupertinoDialog(context: context,
+                     builder: (BuildContext context) => CupertinoDialog(
+                         child: Container(
+                           height: 150,
+                           width: 100,
+                           child: ficheproduit(context, cour, db,test:test),
+
+                         )));
+
+           }, child: Image.network(result.products[i].imgSmallUrl)))
+           , Container(
+               decoration: BoxDecoration(
+
+                 boxShadow: [
+                   BoxShadow(
+                     offset: Offset(0,10),
+                     blurRadius: 50,
+                     color: Colors.deepOrange.withOpacity(0.5)
+                   )
+                 ]
+               ),child: SingleChildScrollView(
+               scrollDirection:Axis.horizontal,child: Row(
+               children: [RichText(text: TextSpan(
+                 children: [
+                   TextSpan(text: result.products[i].productName.toUpperCase(),style: TextStyle(
+                     color: Colors.black
+                   )
+                   ),
+                 ]
+               ))],
+             ),
+             ))],
+          ),
+          
+        )
+      );
     }
 
   } else {
 
   }
 }
-ficheproduit(context,produit pr,db){
+ficheproduit(context,produit pr,db,{test,controlleur}){
   bloc.upgrade();
   double tet=0;
+  TextEditingController _cont=TextEditingController();
+  _cont.addListener(() {
+    print(cour.nom);
+    cour.setkcalt(double.parse(_cont.value.text)*cour.kcal1g);
+    print(cour.kcalt);
+  });
+
   return StaggeredGridView.count(
     crossAxisCount: 8,
     mainAxisSpacing: 4.0,
@@ -92,7 +144,7 @@ ficheproduit(context,produit pr,db){
               style: TextStyle(
                 color: Colors.black,
                 decoration: TextDecoration.none,
-                fontSize: 16.0,
+                fontSize: 14.0,
               ))
       ),
       RichText(
@@ -104,22 +156,16 @@ ficheproduit(context,produit pr,db){
               )
           )
       ),
-      StreamBuilder(
-          stream: bloc.kcal,
-          builder: (context, snapshot) {
+       CupertinoTextField(
 
-            return CupertinoTextField(
-              onChanged:bloc.changekcal,
 
-              onEditingComplete: (){
-
-              },
+              controller: _cont,
 
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
             )// HERE THE IMPORTANT PART
 
-                ;}),
+                ,
       RichText(
         text:TextSpan(text:"",
             style: TextStyle(
@@ -146,8 +192,22 @@ ficheproduit(context,produit pr,db){
 
               };
               await db.insert("journee", x);
+              test.add(Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: ListTile(
+                  leading: Icon(Icons.fastfood,
+                    color: Colors.red,
+                  ),
+                  title: Text(cour.nom.toString()+"   "+cour.kcalt.toString()+" kcal"),
+                ),
+              )
 
-
+              );
+              print("produit ajoutée");
+             // cour.f(cour.repas,cour.kcalt);
+              cour.rc.clear();
               Navigator.pop(context);
 
 
