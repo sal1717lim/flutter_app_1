@@ -8,6 +8,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'ScreenAliment.dart';
 import '../script/produit.dart';
 import '../screen/ScreenAl.dart';
+import '../screen/Entrainement.dart';
 class Principale extends StatefulWidget{
 
 
@@ -74,7 +75,7 @@ setState(() {
             ),
             FlatButton(
               onPressed: (){
-                //Navigator.push(context,MaterialPageRoute(builder: (context)=>(new Profile())));
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>(new MPEntraineent())));
 
               },
               child: ListTile(

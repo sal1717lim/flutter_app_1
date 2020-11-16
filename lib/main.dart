@@ -48,7 +48,7 @@ class newApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -78,8 +78,13 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
+        backgroundColor: Colors.white,
+
+        appBarTheme: AppBarTheme(color: Colors.white,elevation: 0),
+
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
