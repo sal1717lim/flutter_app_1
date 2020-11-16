@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import '../script/produit.dart';
+import '../script/SQLentrainement.dart';
 class personne {
   Database database;
   double kcal1=0;
@@ -148,6 +149,7 @@ class personne {
       "CREATE TABLE journee(id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT ,repas TEXT,aliment TEXT,kcal REAL);",
     );
     print("database creer");
+    creerbddEntrainement(this.database);
     this.insertPersonne();
   }
 

@@ -75,7 +75,12 @@ setState(() {
             ),
             FlatButton(
               onPressed: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>(new MPEntraineent())));
+                try {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => (new MPEntraineent())));
+                }catch(e){
+
+                }
 
               },
               child: ListTile(
