@@ -97,7 +97,8 @@ class _screen extends State<screen>{
                     fontSize: 30
                   ),
                   ),Spacer(),
-                    Image.asset(cour.img)
+                    Hero(tag:cour.hero,
+                        child:Image.asset(cour.img))
                   ],
                 ),
               )

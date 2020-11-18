@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import '../script/programme.dart';
 import 'package:tes/script/Personne.dart';
-
+import 'ExerciceMain.dart';
 ScrollController control=ScrollController();
 
 class MPEntraineent extends StatefulWidget{
@@ -31,6 +31,11 @@ class _MPEntrainement extends State<MPEntraineent> {
     );
   }
   body(){
+    var categ=Categories();
+    List<Widget> rcateg=[];
+    for(int i=0;i<categ.getlen();i++){
+      rcateg.add(Ccateg(Ent[categ.getlist()[i]]));
+    }
     return Container(
       color: Colors.white,
         child:SingleChildScrollView(
@@ -39,7 +44,7 @@ class _MPEntrainement extends State<MPEntraineent> {
       child: Column(
         children: [
           Categories(),
-         Rcateg([Ccateg(),Ccateg(),Ccateg()])
+         Rcateg(rcateg)
 
         ],
 
@@ -50,11 +55,23 @@ class _MPEntrainement extends State<MPEntraineent> {
 class Categories extends StatefulWidget {
   @override
   _Categories createState() => _Categories();
+  int getlen(){
+    return createState().getlen();
+  }
+  List getlist(){
+    return this.createState().getlist();
+  }
 }
 class _Categories extends State<Categories>{
   List categories=[] ;
   _Categories(){
     categories=listecateg;
+  }
+  int getlen(){
+    return categories.length;
+  }
+  List getlist(){
+    return this.categories;
   }
   int selectedIndex =0;
   @override
@@ -113,13 +130,14 @@ class _Categories extends State<Categories>{
   }
 }
 class Ccateg extends StatefulWidget{
-
-  _Ccateg createState()=> _Ccateg();
+   List ent=[];
+   Ccateg(this.ent);
+  _Ccateg createState()=> _Ccateg(this.ent);
 }
 class _Ccateg extends State <Ccateg>{
   @override
   List ent=[];
-  _Ccateg();
+  _Ccateg(this.ent);
   Widget build(BuildContext context) {
     // TODO: implement build
     return SingleChildScrollView(
@@ -130,7 +148,7 @@ class _Ccateg extends State <Ccateg>{
             child:
         Column(
 
-      children: body(),
+      children: body(ent),
     )));
 
   }
@@ -154,35 +172,39 @@ class _Ccateg extends State <Ccateg>{
     
     
   }
-  body(){
+  body(x){
+
     List<Widget> list=[];
 
     List X =[Colors.red,Colors.lightGreen,Colors.blue,Colors.orange,Colors.purple,Colors.black,Colors.brown];
-    for(int i=0;i<3;i++){
+    for(int i=0;i<x.length;i++){
+      var v=X[Random().nextInt(6)];
      list.add(
+
        Container(
          padding: EdgeInsets.symmetric(vertical: 13,horizontal: 13),
 
          height: MediaQuery.of(context).size.height*0.33,
          width: MediaQuery.of(context).size.width-25,
          decoration: BoxDecoration(
-           color: X[Random().nextInt(6)]
+           color: v
               , borderRadius: BorderRadius.circular(50)
          ),
          child: FlatButton(
            onPressed: (){
+             Navigator.push(context,MaterialPageRoute(builder: (context)=>(new ExerciceMain(x[i].exerice,v))));
 
            },
            child: Container(
              child: Stack(
                
                children: [
-                 Positioned(child: Text("Entrainement",
+                 Positioned(child: Text("${x[i].titre}",
                  style: TextStyle(
                    color: Colors.white,
                    fontSize: 25
                  ),),left: 0,top:10 ,),
-                 Positioned(child: Text("7x4",
+                 Positioned(child: Text("nombre d'exercice:${x[i].exerice.length}",
                    style: TextStyle(
                        color: Colors.white,
                        fontSize: 25
@@ -191,7 +213,7 @@ class _Ccateg extends State <Ccateg>{
                    bottom: -20,left: 0,
                      child: Container(
 
-                       child: difficulte(1),
+                       child: difficulte(x[i].difficult),
                      ))
 
                ],

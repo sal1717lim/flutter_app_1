@@ -26,6 +26,7 @@ void main() async{
     List<Map> listpoid=await db.rawQuery('SELECT * FROM TABPOID ORDER BY id ASC;');
     User.setevolution(listpoid);
     nomcateg(User.database);
+    listEnt(User.database);
     User.lila();
 
 
