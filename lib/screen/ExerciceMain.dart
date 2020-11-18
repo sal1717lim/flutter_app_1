@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tes/screen/Entrainement.dart';
 
 import '../script/programme.dart';
+import '../screen/Step.dart';
 
 class ExerciceMain extends StatefulWidget{
   List<Exercice> list=[];
@@ -35,7 +36,7 @@ class _ExerciceMain extends State<ExerciceMain>{
              ),
              child: FlatButton(
                onPressed: (){
-
+                 Navigator.push(context,MaterialPageRoute(builder: (context)=>(new CountDownTimer(this.list[0]))));
                },
                child: Center(
                  child: Text("Commencer !",style: TextStyle(
