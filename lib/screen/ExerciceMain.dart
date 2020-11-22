@@ -36,7 +36,7 @@ class _ExerciceMain extends State<ExerciceMain>{
              ),
              child: FlatButton(
                onPressed: (){
-                 Navigator.push(context,MaterialPageRoute(builder: (context)=>(new CountDownTimer(this.list[0]))));
+                 Navigator.push(context,MaterialPageRoute(builder: (context)=>(new Exercicesuite(this.list,0))));
                },
                child: Center(
                  child: Text("Commencer !",style: TextStyle(
@@ -66,15 +66,21 @@ class _ExerciceMain extends State<ExerciceMain>{
         fontSize:20
       ),));*/
      var str="";
+     if(x[i].serie==1){
+       str=str+x[i].serie.toString()+" serie de ";
+     }else{
+       str=str+x[i].serie.toString()+" series de ";
+
+     }
      if(x[i].duree==-1){
-       str=str+x[i].serie.toString()+" serie de "+x[i].repetition.toString()+" répétitions";
+       str=str+x[i].repetition.toString()+" répétitions";
      }
 
      else{
        if (x[i].duree==1)
-       str=str+x[i].serie.toString()+" serie de "+x[i].duree.toString()+" minute";
+       str=str+x[i].duree.toString()+" minute";
        else
-         str=str+x[i].serie.toString()+" serie de "+x[i].duree.toString()+" minutes";
+         str=str+x[i].duree.toString()+" minutes";
      }
       list.add(
         Container(

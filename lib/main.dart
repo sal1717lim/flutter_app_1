@@ -6,7 +6,8 @@ import 'script/Personne.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'script/programme.dart';
-
+import 'package:flutter/services.dart';
+import 'screen/MenuPrincipale.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Database db=await openDatabase(join(await getDatabasesPath(),'test.db'));
@@ -50,6 +51,10 @@ class newApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -81,6 +86,10 @@ class Myapp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -105,7 +114,7 @@ class Myapp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Principale() ,
+      home: MenuPrincipale() ,
     );
   }
 }
