@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import '../script/Personne.dart';
 import '../screen/principale.dart';
+import '../screen/MenuPrincipale.dart';
 class morphologie extends StatelessWidget{
 
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class morph extends StatelessWidget{
           print(User.database);
           User.ouvrirBDD();
           print(User.database);
-          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Principale()), (route) => false);
+          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MenuPrincipale()), (route) => false);
           //Navigator.push(Context,MaterialPageRoute(builder: (context)=>Principale()));
         },
         padding: EdgeInsets.all(0.0),
@@ -56,7 +57,7 @@ class morph extends StatelessWidget{
           print(User.database);
           User.ouvrirBDD();
           print(User.database);
-          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Principale()), (route) => false);
+          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MenuPrincipale()), (route) => false);
         },
         padding: EdgeInsets.all(0.0),
         child: Image.asset('assets/images/mesomorphe.png',
@@ -70,7 +71,7 @@ class morph extends StatelessWidget{
           print(User.database);
           User.ouvrirBDD();
           print(User.database);
-          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Principale()), (route) => false);
+          Navigator.of(Context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MenuPrincipale()), (route) => false);
         },
         padding: EdgeInsets.all(0.0),
         child: Image.asset('assets/images/endomorphe.png'));

@@ -31,7 +31,7 @@ dependencies:
   edit_distance: ^0.4.1
   barcode_scan: ^3.0.1
   camera: ^0.5.8+11
-
+  pedometer: ^2.0.2
   path_provider: ^1.6.22
   video_player: ^0.11.1+2
   openfoodfacts: ^0.3.12+2

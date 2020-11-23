@@ -148,6 +148,9 @@ class personne {
     await database.execute(
       "CREATE TABLE journee(id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT ,repas TEXT,aliment TEXT,kcal REAL);",
     );
+    await database.execute(
+      "CREATE TABLE podometre(date TEXT PRIMARY KEY,pas INTEGER);",
+    );
     print("database creer");
     creerbddEntrainement(this.database);
     this.insertPersonne();
