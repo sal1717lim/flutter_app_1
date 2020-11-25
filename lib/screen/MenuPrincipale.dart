@@ -23,7 +23,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
   int position=1;
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  String _status = '?', _steps = '/';
 
   @override
   void initState() {
@@ -33,9 +33,15 @@ class _MenuPrincipale extends State<MenuPrincipale>{
 
   void onStepCount(StepCount event) {
     print(event);
-    setState(() async{
+    setState(() {
       _steps = event.steps.toString();
-      await User.database.execute("insert or replace into podometre (date,pas) values((select * from podometre where date = \""+DateTime.now().toString().substring(0,10)+'\"),"'+DateTime.now().toString().substring(0,10)+'",$_steps);');
+    });
+    setState(() async{
+
+      var x=await User.database.rawQuery("select * from podometre");
+      print(x);
+      print("\a");
+      await User.database.execute("insert or replace into podometre (date,pas) values(\""+DateTime.now().toString().substring(0,10)+'",$_steps);');
     });
   }
 
