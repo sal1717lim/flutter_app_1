@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import '../script/produit.dart';
 import '../script/SQLentrainement.dart';
+import '../screen/MenuPrincipale.dart';
 class personne {
+  bool notfirst;
   Database database;
   double kcal1=0;
   double kcal2=0;
@@ -13,7 +15,7 @@ class personne {
   double kcal4=0;
   double kcal5=0;
   double kcal6=0;
-
+    List <barPas>bar=[];
   List <Widget> test=[];
 
   String nom;
@@ -29,6 +31,14 @@ class personne {
   personne(
       {this.nom, this.prenom, this.naissance, this.poid, this.sexe, this.taille}) {
     this.initbool();
+  }
+  void initbar()async{
+    var x=await User.database.rawQuery("select * from podometre");
+    for (int i =0;i<x.length;i++){
+      bar.add(new barPas(x[i]["date"],x[i]["pas"] ));
+    }
+    print(bar);
+    print("\a");
   }
   void lila() async {
     kcal1 = 0;

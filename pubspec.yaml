@@ -33,6 +33,8 @@ dependencies:
   camera: ^0.5.8+11
   pedometer: ^2.0.2
   path_provider: ^1.6.22
+  flutter_bloc: ^4.0.0
+  animator: ^2.0.1
   video_player: ^0.11.1+2
   openfoodfacts: ^0.3.12+2
   # The following adds the Cupertino Icons font to your application.

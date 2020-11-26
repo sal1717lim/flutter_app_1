@@ -19,6 +19,7 @@ class MenuPrincipale extends StatefulWidget{
 class _MenuPrincipale extends State<MenuPrincipale>{
   @override
   final List<pointP> data=[];
+  final List<barPas> bar=User.bar;
   ScrollController control=ScrollController();
   int position=1;
   Stream<StepCount> _stepCountStream;
@@ -38,9 +39,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
     });
     setState(() async{
 
-      var x=await User.database.rawQuery("select * from podometre");
-      print(x);
-      print("\a");
+
       await User.database.execute("insert or replace into podometre (date,pas) values(\""+DateTime.now().toString().substring(0,10)+'",$_steps);');
     });
   }
@@ -474,6 +473,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                  child: Center(
                    child: SingleChildScrollView(
                            scrollDirection: Axis.horizontal,
+                            physics:NeverScrollableScrollPhysics(),
                             controller: this.control,
                             child: Container(
                               width: (Size.width-30)*2.5,
@@ -493,7 +493,8 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                                         ),
                                         Container(
                                           height: 30,
-                                          child: RaisedButton(onPressed: (){
+                                          child: FlatButton(
+                                              onPressed: (){
                                             setState(() {
                                               TextEditingController _textController=TextEditingController(text: '');
                                               showCupertinoModalPopup(
@@ -556,14 +557,17 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                                               );
 
                                             });
-                                          }),
+                                          }
+                                          ,color:Colors.white,child: Row(
+                                            children: [Icon(Icons.add_circle_rounded,color: Colors.deepOrange,),Text("Poids")],
+                                          ),),
                                         )
                                       ],
                                     ),
-                                    SizedBox(width: 20,),
+                                    SizedBox(width: 41,),
                                     Container(
                                       height: 240,
-                                      width: (Size.width-30)*0.8,
+                                      width: (Size.width-30)*0.65,
                                       child: Center(
                                         child: charts.BarChart(
                                           creerpas(),
@@ -631,11 +635,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
     ];
   }
   creerpas(){
-    final List<barPas> pas=[
 
-    ];
     return [
-      new charts.Series<barPas,String>(id: 'nombre de pas', data: pas, domainFn:(barPas sales, _)=>sales.date, measureFn: (barPas sales, _)=>sales.pas)
+      new charts.Series<barPas,String>(id: 'nombre de pas', data: bar, domainFn:(barPas sales, _)=>sales.date, measureFn: (barPas sales, _)=>sales.pas)
     ];
 
 

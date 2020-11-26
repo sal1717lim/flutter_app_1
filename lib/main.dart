@@ -8,11 +8,16 @@ import 'package:sqflite/sqflite.dart';
 import 'script/programme.dart';
 import 'package:flutter/services.dart';
 import 'screen/MenuPrincipale.dart';
+import 'screen/splash_page.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  bool notfirst=true;
+  User.notfirst=true;
+  runApp(Myapp(notfirst));
   Database db=await openDatabase(join(await getDatabasesPath(),'test.db'));
   User.database=db;
-  bool notfirst=true;
+
+
   try {
     List<Map> list=await db.rawQuery('SELECT * FROM personne');
     User.setNom(list[0]["nom"]);
@@ -27,6 +32,7 @@ void main() async{
     List<Map> listpoid=await db.rawQuery('SELECT * FROM TABPOID ORDER BY id ASC;');
     User.setevolution(listpoid);
     nomcateg(User.database);
+    User.initbar();
     listEnt(User.database);
     User.lila();
 
@@ -34,12 +40,12 @@ void main() async{
   }catch(e){
     User.database=db;
     print(db);
-    runApp(newApp());
-    notfirst=false;
+    //runApp(newApp());
+   User.notfirst=false;
 
   }
   if(notfirst){
-    runApp(Myapp());
+    runApp(Myapp(notfirst));
   }
 
 }
@@ -81,8 +87,8 @@ class newApp extends StatelessWidget {
 }
 class Myapp extends StatelessWidget {
   // This widget is the root of your application.
-
-
+  bool b;
+   Myapp(this.b);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +120,7 @@ class Myapp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MenuPrincipale() ,
+      home: SplashPage(this.b) ,
     );
   }
 }
