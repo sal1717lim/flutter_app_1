@@ -190,7 +190,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                     child:Column(
                       children: [
                         SizedBox(height: Size.height*0.4*0.15,),
-                        Text("9000 \n kcal",style: TextStyle(
+                        Text(User.morpho.index==0?"${User.kcalT.toInt()} \nkcal":"dhvjshf",style: TextStyle(
                           fontSize: Size.height*0.4*0.07
                         ),),
                         SizedBox(height: Size.height*0.4*0.08,),
@@ -207,6 +207,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
               )
         ,
               ),
+
               Container(
                 height: Size.height*0.7,
                 width: Size.width*0.7,
@@ -257,7 +258,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                         ),
                           SizedBox(width: 20,),
                           Center(
-                            child: Text("Petit\ndéjeuner\n1500/1500",style: TextStyle(
+                            child: Text(
+                              User.morpho.index==0?"Petit\ndéjeuner\n${User.kcal1}/580":User.morpho.index==1?"Petit\ndéjeuner\n${User.kcal1}/360":"Petit\ndéjeuner\n${User.kcal1}/245"
+                              ,style: TextStyle(
                               fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -268,7 +271,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                       Row(
                         children: [Expanded(child: Column(
                           children: [Center(
-                            child: Text("Collation\nMatinale\n1500/1500",style: TextStyle(
+
+                            child: Text( User.morpho.index==0?"Collation\nMatinale\n${User.kcal2}/145":User.morpho.index==1?"Collation\nMatinale\n${User.kcal2}/90":"Collation\nMatinale\n${User.kcal2}/75",
+                              style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -327,7 +332,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                         ),
                           SizedBox(width: 20,),
                           Center(
-                            child: Text("Déjeuner\n1500/1500",style: TextStyle(
+                            child: Text( User.morpho.index==0?"Déjeuner\n${User.kcal3}/1160":User.morpho.index==1?"Déjeuner\n${User.kcal3}/720":"Déjeuner\n${User.kcal3}/580",
+
+                              style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -337,7 +344,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                       Row(
                         children: [Expanded(child: Column(children: [
                           Center(
-                            child: Text("Collation soir\n 1500/1500",style: TextStyle(
+                              child: Text( User.morpho.index==0?"Collation soir\n${User.kcal4}/145":User.morpho.index==1?"Collation soir\n${User.kcal4}/90":"Collation soir\n${User.kcal4}/75",
+
+                              style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -393,7 +402,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                         ),
                           SizedBox(width: 20,),
                           Center(
-                            child: Text("     Gouter\n 1500/1500",style: TextStyle(
+                            child: Text( User.morpho.index==0?"Gouter\n${User.kcal5}/580":User.morpho.index==1?"Gouter\n${User.kcal5}/360":"Gouter\n${User.kcal5}/290",
+
+                              style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -403,7 +414,9 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                       Row(
                         children: [Expanded(child: Column(
                           children: [Center(
-                            child: Text("     Dinner\n 1500/1500",style: TextStyle(
+                              child: Text( User.morpho.index==0?"Dinner\n${User.kcal6}/290":User.morpho.index==1?"Dinner\n6/180":"Dinner\n${User.kcal6}/145",
+
+                              style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.white
@@ -444,7 +457,16 @@ class _MenuPrincipale extends State<MenuPrincipale>{
             ],
 
           ),
-           SizedBox(height: 40,),
+           Container(
+             height: 50,
+             child: Row(
+               children: [SizedBox(width: 25,),Text("vos statistiques:",style: TextStyle(
+                 fontSize: 30,
+                 fontWeight: FontWeight.w400
+               ),),],
+             )
+           ),
+           SizedBox(height: 5,),
            Container(
              height: 300,
              width: Size.width-30,

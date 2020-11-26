@@ -7,6 +7,7 @@ import '../script/produit.dart';
 import '../script/SQLentrainement.dart';
 import '../screen/MenuPrincipale.dart';
 class personne {
+
   bool notfirst;
   Database database;
   double kcal1=0;
@@ -15,6 +16,7 @@ class personne {
   double kcal4=0;
   double kcal5=0;
   double kcal6=0;
+  double kcalT=0;
     List <barPas>bar=[];
   List <Widget> test=[];
 
@@ -40,43 +42,43 @@ class personne {
     print(bar);
     print("\a");
   }
-  void lila() async {
-    kcal1 = 0;
-    kcal2 = 0;
-    kcal3 = 0;
+  void lila()  {
 
-    kcal4 = 0;
+     this.setkcal(1, "ptit-dej");
+     this.setkcal(2, "collmat");
+     this.setkcal(3, "dej");
+     this.setkcal(4, "collsoir");
+     this.setkcal(5, "the");
+     this.setkcal(6, "dinner");
+     this.setkcalTotal();
 
 
-    kcal5 = 0;
-    kcal6 = 0;
-    List<Map> list = await User.database.rawQuery(
-        'SELECT * FROM journee WHERE (date = \'' +
-            DateTime.now().toString().substring(0, 10) + '\')');
-    int i;
-    for (i = 0; i < list.length; i++) {
-      switch (list[i]['repas']) {
-        case 'ptit-dej':
-          kcal1 = kcal1 + list[i]["kcal"];
-          break;
-        case 'dej':
-          kcal2 = kcal2 + list[i]["kcal"];
-          break;
-        case 'collmat':
-          kcal3 = kcal3 + list[i]["kcal"];
-          break;
-        case 'the':
-          kcal4 = kcal4 + list[i]["kcal"];
-          break;
-        case 'dinner':
-          kcal5 = kcal5 + list[i]["kcal"];
-          break;
-        case 'collsoir':
-          kcal6 = kcal6 + list[i]["kcal"];
-          break;
-      }
+  }
+  void ajoutkcal(String repas,var nb){
+    switch(repas){
+      case "ptit-dej":
+        this.kcal1=this.kcal1+nb;
+        break;
+      case "collmat":
+        this.kcal2=this.kcal2+nb;
+        break;
+      case "dej":
+        this.kcal3=this.kcal3+nb;
+        break;
+      case "collsoir":
+        this.kcal4=this.kcal4+nb;
+        break;
+      case "the":
+        this.kcal5=this.kcal5+nb;
+        break;
+      case "dinner":
+        this.kcal6=this.kcal6+nb;
+        break;
     }
 
+  }
+  void setkcalTotal(){
+    this.kcalT=kcal1+kcal2+kcal3+kcal4+kcal5+kcal6;
   }
   void majlila(String r,double a){
     switch(r){
@@ -185,7 +187,42 @@ class personne {
   void setpoid(double poid) {
     this.poid = poid;
   }
-
+  void setkcal(int nb,String repas)async{
+    List<Map> list=await User.database.rawQuery('SELECT * FROM journee WHERE (date = \''+DateTime.now().toString().substring(0,10)+'\' AND repas = \''+repas+'\')');
+    switch(nb){
+      case 1:
+        for(int i=0;i<list.length;i++){
+          print(list[i]);
+          this.kcal1=this.kcal1+list[i]["kcal"];
+        }
+        break;
+      case 2:
+        for(int i=0;i<list.length;i++){
+          this.kcal2=this.kcal2+list[i]["kcal"];
+        }
+        break;
+      case 3:
+        for(int i=0;i<list.length;i++){
+          this.kcal3=this.kcal3+list[i]["kcal"];
+        }
+        break;
+      case 4:
+        for(int i=0;i<list.length;i++){
+          this.kcal4=this.kcal4+list[i]["kcal"];
+        }
+        break;
+      case 5:
+        for(int i=0;i<list.length;i++){
+          this.kcal5=this.kcal5+list[i]["kcal"];
+        }
+        break;
+      case 6:
+        for(int i=0;i<list.length;i++){
+          this.kcal6=this.kcal6+list[i]["kcal"];
+        }
+        break;
+    }
+  }
   double getpoid() {
     return this.poid;
   }

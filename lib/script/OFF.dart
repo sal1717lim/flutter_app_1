@@ -187,7 +187,7 @@ ficheproduit(context,produit pr,db,{test,controlleur}){
                 'date':DateTime.now().toString().substring(0,10),
                 'aliment':cour.nom.toString(),
                 'repas':cour.repas,
-                'kcal': cour.kcalt
+                'kcal': cour.kcalt.roundToDouble()
 
 
               };
@@ -200,11 +200,13 @@ ficheproduit(context,produit pr,db,{test,controlleur}){
                   leading: Icon(Icons.fastfood,
                     color: Colors.red,
                   ),
-                  title: Text(cour.nom.toString()+"   "+cour.kcalt.toString()+" kcal"),
+                  title: Text(cour.nom.toString()+"   "+cour.kcalt.roundToDouble().toString()+" kcal"),
                 ),
               )
 
               );
+              cour.ajoutkcal(cour.repas, cour.kcalt);
+              cour.setkcaltotal();
               print("produit ajoutée");
              // cour.f(cour.repas,cour.kcalt);
               cour.rc.clear();

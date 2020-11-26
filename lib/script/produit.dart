@@ -12,8 +12,14 @@ class produit{
   String repas;
   double kcal1g;
   double kcalt;
+  void ajoutkcal(String repas,var nb){
+    User.ajoutkcal(repas, nb);
+  }
   void f(r,a){
     User.majlila(r, a);
+  }
+  void setkcaltotal(){
+    User.setkcalTotal();
   }
   produit(this.nom,this.url,this.kcal,this.kcal1g,this.kcalt,this.hero);
   void setnom(String nom){

@@ -335,19 +335,18 @@ class Profile extends StatelessWidget{
                                 ],
                               ),
                             ),
-                          )
+                          ),
+
+
 
                           ),
                           Container(
-                            
                           )
                 ],
 
                     ),
     );
   }
-  double calculeImc(){
-    return(User.getpoid()/((User.getTaille()/100)*(User.getTaille()/100)));
-  }
+  double calculeImc(){return(User.getpoid()/((User.getTaille()/100)*(User.getTaille()/100))); }
   }
 

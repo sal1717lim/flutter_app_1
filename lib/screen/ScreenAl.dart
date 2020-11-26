@@ -15,6 +15,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import '../script/Personne.dart';
+import '../screen/MenuPrincipale.dart';
 
 
 class screen extends StatefulWidget{
@@ -68,6 +69,13 @@ class _screen extends State<screen>{
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
         elevation: 0,
+        leading: IconButton(
+          onPressed: (){
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MenuPrincipale()), (route) => false);
+
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: body(context),
     );
@@ -313,14 +321,14 @@ class _screen extends State<screen>{
             onPressed: ()async{
               print(DateTime.now().toString().substring(0,10));
               print(cour.kcal1g);
-              print(cour.kcalt);
+              print(cour.kcalt.toStringAsFixed(2));
               if(cour.kcalt!=0){
 
                 Map <String,dynamic> x={
                   'date':DateTime.now().toString().substring(0,10),
                   'aliment':cour.nom.toString(),
                   'repas':cour.repas,
-                  'kcal': cour.kcalt
+                  'kcal': double.parse(cour.kcalt.toStringAsFixed(2))
 
 
                 };
@@ -334,7 +342,7 @@ class _screen extends State<screen>{
                       leading: Icon(Icons.fastfood,
                         color: Colors.red,
                       ),
-                      title: Text(cour.nom.toString()+"   "+cour.kcalt.toString()+" kcal"),
+                      title: Text(cour.nom.toString()+"   "+double.parse(cour.kcalt.toStringAsFixed(2)).toString()+" kcal"),
                     ),
                   )
 
@@ -342,7 +350,10 @@ class _screen extends State<screen>{
                 });
 
                 Navigator.pop(context);
-
+                setState(() {
+                  User.ajoutkcal(cour.repas, cour.kcalt.roundToDouble());
+                  User.setkcalTotal();
+                });
 
               }
             },
