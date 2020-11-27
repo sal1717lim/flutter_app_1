@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../src/splash_nloc/splash_bloc.dart';
 import 'MenuPrincipale.dart';
-import 'fomulaire.dart';
+import 'UIForm.dart';
 import '../script/Personne.dart';
 import 'package:animator/animator.dart';
+
 class SplashPage extends StatefulWidget {
   @override
   bool b;
@@ -37,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: User.notfirst?(BuildContext context) => MenuPrincipale():(BuildContext context) =>Formulaire(),
+                    builder: User.notfirst?(BuildContext context) => MenuPrincipale():(BuildContext context) =>Myform(),
                   ),
                 );
               }

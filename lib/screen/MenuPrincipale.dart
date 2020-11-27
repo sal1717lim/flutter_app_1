@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import '../script/Personne.dart';
 import 'Profile.dart';
 import 'package:pedometer/pedometer.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'ScreenAliment.dart';
 import '../script/produit.dart';
 import '../screen/ScreenAl.dart';
 import '../screen/Entrainement.dart';
@@ -84,80 +82,114 @@ class _MenuPrincipale extends State<MenuPrincipale>{
       key: _drawerKey,
       body: body(),
       drawer :Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children:  <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepOrangeAccent,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
-                boxShadow: [BoxShadow(
 
-                    offset: Offset(0,10),
+        child:Stack(
+          children: [ListView(
+            padding: EdgeInsets.zero,
 
-                    blurRadius: 50,
+            children:  <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.deepOrangeAccent,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
+                  boxShadow: [BoxShadow(
 
-                    color: Colors.deepOrange.withOpacity(0.2)
-                )],
+                      offset: Offset(0,10),
 
-              ),
+                      blurRadius: 50,
 
-              child:Container(
-                  child: Stack(
-                    children: [
-                      Image.asset("assets/images/icon.png"),
-                      Align(
-                        alignment: Alignment(-1,0.9),
-                        child: Text("Bienvenue "+User.getPrenom(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
+                      color: Colors.deepOrange.withOpacity(0.2)
+                  )],
 
-                          ),),
-                      ),],
-                  )
-              ),
-
-
-
-
-            ),
-            SizedBox(height: 50,),
-            FlatButton(
-              onPressed: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>(new Profile())));
-
-              },
-              child: ListTile(
-                leading: Icon(Icons.account_circle,
-                  color: Colors.blue,),
-                title: Text('Profil'),
-              ),
-            ),
-            FlatButton(
-              onPressed: (){
-                try {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => (new MPEntraineent())));
-                }catch(e){
-
-                }
-
-              },
-              child: ListTile(
-                leading: Icon(Icons.favorite,
-                  color: Colors.red,
                 ),
-                title: Text('Entraînement'),
+
+                child:Container(
+                    height:  MediaQuery.of(context).size.height*0.3,
+                    child: Stack(
+                      children: [
+                        Image.asset("assets/images/icon.png"),
+                        Align(
+                          alignment: Alignment(-1,0.9),
+                          child: Text("Bienvenue "+User.getPrenom(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+
+                            ),),
+                        ),],
+                    )
+                ),
+
+
+
+
               ),
+              SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+              FlatButton(
+                onPressed: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>(new Profile())));
+
+                },
+                child: ListTile(
+                  leading: Icon(Icons.account_circle,
+                    color: Colors.blue,),
+                  title: Text('Profil'),
+                ),
+              ),
+              FlatButton(
+                onPressed: (){
+                  try {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => (new MPEntraineent())));
+                  }catch(e){
+
+                  }
+
+                },
+                child: ListTile(
+                  leading: Icon(Icons.favorite,
+                    color: Colors.red,
+                  ),
+                  title: Text('Entraînement'),
+                ),
+              ),
+
+
+
+            ],
+          ),Positioned(child:Container(
+            child: Row(
+              children: [
+                Text("Suivez nous:",style: TextStyle(
+                  fontSize: 18
+                ),),
+                Container(
+
+                  child: FlatButton(
+                    onPressed: (){},
+                    child: Image.asset("assets/images/instagram.png",height: 50,width: 50,),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+            margin: EdgeInsets.symmetric(vertical:5,horizontal: 5),
+          ),bottom: 0,right: 0,)],
+        )
+
+
       ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: IconButton(icon: Icon(Icons.menu,color: Colors.black,), onPressed: (){
-          _drawerKey.currentState.openDrawer();
-        }),
+        //shape: BoxShape.circle
+        leading: Container(
+
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+                  color: Colors.deepOrangeAccent.withOpacity(0.8)
+          ),
+          child: IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: (){
+            _drawerKey.currentState.openDrawer();
+          }),
+        ),
       ),
       extendBodyBehindAppBar: true
     );
@@ -190,7 +222,7 @@ class _MenuPrincipale extends State<MenuPrincipale>{
                     child:Column(
                       children: [
                         SizedBox(height: Size.height*0.4*0.15,),
-                        Text(User.morpho.index==0?"${User.kcalT.toInt()} \nkcal":"dhvjshf",style: TextStyle(
+                        Text("${User.kcalT.toInt()} \nkcal",style: TextStyle(
                           fontSize: Size.height*0.4*0.07
                         ),),
                         SizedBox(height: Size.height*0.4*0.08,),
